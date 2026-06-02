@@ -8,6 +8,7 @@ import { createSpeechRecognition, isSpeechRecognitionSupported } from "@/lib/spe
 import type { AppStatus, ChatMessage } from "@/types";
 
 type SpeechRecognition = any;
+type SpeechRecognitionErrorEvent = any;
 
 function generateId(): string {
   return `msg_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
