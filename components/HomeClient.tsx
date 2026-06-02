@@ -7,6 +7,8 @@ import TextInput from "@/components/TextInput";
 import { createSpeechRecognition, isSpeechRecognitionSupported } from "@/lib/speechRecognition";
 import type { AppStatus, ChatMessage } from "@/types";
 
+type SpeechRecognition = any;
+
 function generateId(): string {
   return `msg_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
 }
