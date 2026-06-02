@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS Custom Properties — Design Tokens
+   ============================================================ */
+:root {
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  /* Color Tokens */
+  --color-void: #050508;
+  --color-obsidian: #0C0C12;
+  --color-graphite: #13131C;
+  --color-slate: #1A1A28;
+  --color-mist: #2A2A40;
+  --color-ghost: #3A3A58;
+  --color-silver: #8888A8;
+  --color-ivory: #F0EEE8;
+
+  --color-aurora: #00D4FF;
+  --color-aurora-dim: #0099BB;
+  --color-aurora-glow: rgba(0, 212, 255, 0.15);
+
+  --color-pulse: #FF6B6B;
+  --color-pulse-dim: #CC4444;
+  --color-pulse-glow: rgba(255, 107, 107, 0.15);
+
+  --color-sage: #4ECDC4;
+  --color-sage-dim: #2A8A82;
+  --color-sage-glow: rgba(78, 205, 196, 0.15);
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   Scrollbar Styling
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ghost);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-aurora-dim);
+}
+
+/* ============================================================
+   Component Layer — Reusable Utilities
+   ============================================================ */
+@layer components {
+
+  /* Glass morphism card */
+  .glass-card {
+    @apply relative rounded-2xl border border-ghost/40;
+    background: rgba(13, 13, 20, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Aurora glow effect */
+  .aurora-glow {
+    box-shadow:
+      0 0 0 1px rgba(0, 212, 255, 0.2),
+      0 0 30px rgba(0, 212, 255, 0.1),
+      0 0 80px rgba(0, 212, 255, 0.05);
+  }
+
+  .pulse-glow {
+    box-shadow:
+      0 0 0 1px rgba(255, 107, 107, 0.3),
+      0 0 20px rgba(255, 107, 107, 0.15);
+  }
+
+  .sage-glow {
+    box-shadow:
+      0 0 0 1px rgba(78, 205, 196, 0.3),
+      0 0 20px rgba(78, 205, 196, 0.15);
+  }
+
+  /* Status badge base */
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium uppercase tracking-widest;
+  }
+
+  /* Button base styles */
+  .btn-primary {
+    @apply relative overflow-hidden px-6 py-3 rounded-xl font-display font-semibold text-sm uppercase tracking-widest transition-all duration-200;
+    background: linear-gradient(135deg, var(--color-aurora), var(--color-aurora-dim));
+    color: var(--color-obsidian);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  .btn-primary:disabled {
+    @apply opacity-40 cursor-not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Chat bubble animations */
+  .message-enter {
+    animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Waveform bar */
+  .wave-bar {
+    @apply rounded-full;
+    background: var(--color-aurora);
+    animation: wave-dance 0.8s ease-in-out infinite;
+  }
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { animation-delay: 0.1s; }
+  .wave-bar:nth-child(5) { animation-delay: 0s; }
+}
+
+/* ============================================================
+   Keyframe Animations
+   ============================================================ */
+@keyframes slide-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes wave-dance {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+  50%       { transform: scaleY(1.0); opacity: 1;   }
+}
+
+@keyframes ping-ring {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0;   }
+}
+
+@keyframes breathe-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.03); }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+}
+
+/* ============================================================
+   Video container overrides (HeyGen SDK)
+   ============================================================ */
+#avatar-video-container video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* ============================================================
+   Selection styling
+   ============================================================ */
+::selection {
+  background: rgba(0, 212, 255, 0.25);
+  color: var(--color-ivory);
+}
+
+/* ============================================================
+   Focus visible ring
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--color-aurora);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
